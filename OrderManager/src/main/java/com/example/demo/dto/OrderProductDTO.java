@@ -1,11 +1,12 @@
 package com.example.demo.dto;
 
-import jakarta.persistence.Column;
 import lombok.Data;
+
+import java.util.UUID;
 
 @Data
 public class OrderProductDTO {
-    private String orderId;
+    private UUID orderId;
     private String productId;
     private Integer productQuantity;
 }

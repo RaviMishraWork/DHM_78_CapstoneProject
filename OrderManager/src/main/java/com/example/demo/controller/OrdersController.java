@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.data.Order;
-import com.example.demo.data.OrderRequest;
 import com.example.demo.dto.OrderDTO;
+import com.example.demo.dto.OrderRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

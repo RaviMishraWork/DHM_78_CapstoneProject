@@ -6,8 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
-@Table(name = "order_product_reference")
+@Table(name = "order_product")
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,9 +20,9 @@ public class OrderProduct {
     private Long id;
 
     @Column(name = "order_id")
-    private String orderId;
+    private UUID orderId;
 
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false, updatable = false, columnDefinition = "VARCHAR(32)")
     private String productId;
 
     @Column(name = "product_quantity")

@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.SupplierDao;
+import com.example.demo.dao.SupplierDTO;
 import com.example.demo.entity.SupplierEntity;
 import com.example.demo.repository.SupplierRepository;
 
@@ -16,38 +16,38 @@ public class SupplierService {
 	@Autowired
 	private SupplierRepository supplierRepo;
 	
-	private SupplierDao convertToDao(SupplierEntity supplierEntity) {
-		return SupplierDao.builder()
+	private SupplierDTO convertToDao(SupplierEntity supplierEntity) {
+		return SupplierDTO.builder()
 				.contactInfo(supplierEntity.getContactInfo())
 				.rating(supplierEntity.getRating())
 				.build();
 	}
 	
-	private SupplierEntity convertToEntity(SupplierDao supploerDao) {
+	private SupplierEntity convertToEntity(SupplierDTO supploerDao) {
 		return SupplierEntity.builder()
 				.contactInfo(supploerDao.getContactInfo())
 				.rating(supploerDao.getRating())
 				.build();
 	}
 	
-	public SupplierDao insertSupplier(SupplierDao supplierDao) {
+	public SupplierDTO insertSupplier(SupplierDTO supplierDao) {
 		SupplierEntity supplierEntity = convertToEntity(supplierDao);
 		supplierRepo.save(supplierEntity );
 		return convertToDao(supplierEntity );
 	}
 	
-	public List<SupplierDao> getAllSuppliers() {
+	public List<SupplierDTO> getAllSuppliers() {
 		return supplierRepo.findAll().stream()
 				.map((supplierEntity ) -> {
 					return convertToDao(supplierEntity );
 				}).collect(Collectors.toList());
 	}
 	
-	public SupplierDao getSupplierById(int id) {
+	public SupplierDTO getSupplierById(int id) {
 		return convertToDao(supplierRepo.findById(id).orElse(null));
 	}
 
-	public SupplierDao updateSupplier(int id, SupplierDao supplierDao) {
+	public SupplierDTO updateSupplier(int id, SupplierDTO supplierDao) {
 		SupplierEntity supplierEntity = supplierRepo.findById(id).orElse(null);
 		
 		if (supplierEntity != null) {
@@ -61,7 +61,7 @@ public class SupplierService {
 		}
 	}
 	
-	public SupplierDao deleteSupplier(int id) {
+	public SupplierDTO deleteSupplier(int id) {
 		SupplierEntity supplierEntity  = supplierRepo.findById(id).orElse(null);
 		
 		if (supplierEntity  != null) {

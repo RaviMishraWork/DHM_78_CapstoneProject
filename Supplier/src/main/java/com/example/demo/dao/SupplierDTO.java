@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class SupplierDao {
+public class SupplierDTO {
 	private String contactInfo;
 	private String rating;
 }

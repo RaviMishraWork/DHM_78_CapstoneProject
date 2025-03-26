@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dao.SupplierDao;
+import com.example.demo.dao.SupplierDTO;
 import com.example.demo.service.SupplierService;
 
 @RestController
@@ -23,27 +23,27 @@ public class SupplierController {
 	SupplierService supplierService;
 	
 	@PostMapping("/insert")
-	public SupplierDao insert(@RequestBody SupplierDao supplierDao) {
+	public SupplierDTO insert(@RequestBody SupplierDTO supplierDao) {
 		return supplierService.insertSupplier(supplierDao);
 	}
 	
 	@GetMapping
-	public List<SupplierDao> getAllSuppliers() {
+	public List<SupplierDTO> getAllSuppliers() {
 		return supplierService.getAllSuppliers();
 	}
 	
 	@GetMapping("/{id}")
-	public SupplierDao getAllSuppliers(@PathVariable int id) {
+	public SupplierDTO getAllSuppliers(@PathVariable int id) {
 		return supplierService.getSupplierById(id);
 	}
 	
 	@PutMapping("/{id}")
-	public SupplierDao updateSupplier(@PathVariable int id, @RequestBody SupplierDao supplierDao) {
+	public SupplierDTO updateSupplier(@PathVariable int id, @RequestBody SupplierDTO supplierDao) {
 		return supplierService.updateSupplier(id, supplierDao);
 	}
 	
 	@DeleteMapping("/{id}")
-	public SupplierDao deleteSupplier(@PathVariable int id) {
+	public SupplierDTO deleteSupplier(@PathVariable int id) {
 		return supplierService.deleteSupplier(id);
 	}
 

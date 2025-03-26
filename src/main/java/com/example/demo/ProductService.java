@@ -38,7 +38,6 @@ public class ProductService {
 	public ProductDao updateProduct(int id, ProductDao productDao) {
 		ProductEntity productEntity = productRepository.findById(id).orElse(null);
 		if(productEntity != null) {
-			productEntity.setSku(productDao.getSku());
 			productEntity.setName(productDao.getName());
 			productEntity.setDescription(productDao.getDescription());
 			productEntity.setInitial_stock(productDao.getInitial_stock());

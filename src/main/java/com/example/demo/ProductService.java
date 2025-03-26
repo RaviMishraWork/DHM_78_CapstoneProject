@@ -57,9 +57,9 @@ public class ProductService {
 	}
 	
 	//d. View Product Details
-	public List<ProductDao> getAllProducts() {
-		List<ProductEntity> allProducts = productRepository.findAll();
-		return allProducts.stream().map(this::mapEntityToDao).toList();
+	public ProductDao getProductDetails(int id) {
+		ProductEntity productEntity = productRepository.findById(id).orElse(null);
+		return mapEntityToDao(productEntity);
 	}	
 }
 

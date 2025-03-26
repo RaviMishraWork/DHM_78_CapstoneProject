@@ -1,5 +1,4 @@
 package com.example.demo;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,28 +11,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/product")
-public class ProductController {//localhost:8081/product
+@RequestMapping("/api/v1/inventory/products")
+public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@PostMapping("/insert")
+	@PostMapping("/add")
 	public ProductDao addProduct(@RequestBody ProductDao productDao) {
 		return productService.addProduct(productDao);
 	}
 	
-	@PutMapping("/{sku}")
-	public ProductDao updateProduct(@PathVariable int sku, @RequestBody ProductDao productDao) {
-		return productService.updateProduct(sku, productDao);
+	@PutMapping("/update/{id}")
+	public ProductDao updateProduct(@PathVariable int id, @RequestBody ProductDao productDao) {
+		return productService.updateProduct(id, productDao);
 	}
 	
-	@DeleteMapping("/{sku}")
-	public ProductDao deleteProduct(@PathVariable int sku) {
-		return productService.deleteProduct(sku);
+	@DeleteMapping("/{id}")
+	public ProductDao deleteProduct(@PathVariable int id) {
+		return productService.deleteProduct(id);
 	}	
 	
-	@GetMapping
-	public List<ProductDao> getAllProducts(){
-		return productService.getAllProducts();
+	@GetMapping("/{id}")
+	public ProductDao getProductDetails(@PathVariable int id){
+		return productService.getProductDetails(id);
 	}
 }

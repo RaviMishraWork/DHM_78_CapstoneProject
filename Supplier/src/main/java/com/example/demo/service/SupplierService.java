@@ -10,9 +10,6 @@ import com.example.demo.dao.SupplierDao;
 import com.example.demo.entity.SupplierEntity;
 import com.example.demo.repository.SupplierRepository;
 
-import jakarta.ws.rs.sse.Sse;
-
-
 @Service
 public class SupplierService {
 	
@@ -34,15 +31,15 @@ public class SupplierService {
 	}
 	
 	public SupplierDao insertSupplier(SupplierDao supplierDao) {
-		SupplierEntity se = convertToEntity(supplierDao);
-		supplierRepo.save(se);
-		return convertToDao(se);
+		SupplierEntity supplierEntity = convertToEntity(supplierDao);
+		supplierRepo.save(supplierEntity );
+		return convertToDao(supplierEntity );
 	}
 	
 	public List<SupplierDao> getAllSuppliers() {
 		return supplierRepo.findAll().stream()
-				.map((se) -> {
-					return convertToDao(se);
+				.map((supplierEntity ) -> {
+					return convertToDao(supplierEntity );
 				}).collect(Collectors.toList());
 	}
 	
@@ -51,23 +48,25 @@ public class SupplierService {
 	}
 
 	public SupplierDao updateSupplier(int id, SupplierDao supplierDao) {
-		SupplierEntity se = supplierRepo.findById(id).orElse(null);
+		SupplierEntity supplierEntity = supplierRepo.findById(id).orElse(null);
 		
-		if (se != null) {
-			se = convertToEntity(supplierDao);
-			se = supplierRepo.save(se);
-			return convertToDao(se);
+		if (supplierEntity != null) {
+			supplierEntity.setContactInfo(supplierDao.getContactInfo());
+			supplierEntity.setRating(supplierDao.getRating());
+			
+			supplierEntity = supplierRepo.save(supplierEntity );
+			return convertToDao(supplierEntity );
 		} else {
 			return null;
 		}
 	}
 	
 	public SupplierDao deleteSupplier(int id) {
-		SupplierEntity se = supplierRepo.findById(id).orElse(null);
+		SupplierEntity supplierEntity  = supplierRepo.findById(id).orElse(null);
 		
-		if (se != null) {
-			supplierRepo.delete(se);
-			return convertToDao(se);
+		if (supplierEntity  != null) {
+			supplierRepo.delete(supplierEntity );
+			return convertToDao(supplierEntity );
 		} else {
 			return null;
 		}

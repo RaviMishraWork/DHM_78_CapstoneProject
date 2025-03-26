@@ -42,7 +42,7 @@ public class SupplierController {
 		return supplierService.updateSupplier(id, supplierDao);
 	}
 	
-	@DeleteMapping("/{id")
+	@DeleteMapping("/{id}")
 	public SupplierDao deleteSupplier(@PathVariable int id) {
 		return supplierService.deleteSupplier(id);
 	}

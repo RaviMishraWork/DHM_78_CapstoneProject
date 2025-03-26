@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: UserAuth
+  datasource:
+    url: jdbc:mysql://localhost:3306/Authenticate
+    username: root
+    password: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+    
+#eureka:
+ # client:
+  #  service-url:
+   #   defaultZone: http://localhost:8761/eureka/
+      
+server:
+  port: 9890

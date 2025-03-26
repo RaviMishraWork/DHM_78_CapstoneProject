@@ -4,7 +4,10 @@ server:
 spring:
   application:
     name: ordermanagement
-
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
 eureka:
   client:
     service-url:

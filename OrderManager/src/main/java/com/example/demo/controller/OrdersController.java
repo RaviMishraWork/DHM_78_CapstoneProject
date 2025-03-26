@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.data.Order;
+import com.example.demo.data.OrderRequest;
+import com.example.demo.dto.OrderDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,13 +12,13 @@ import java.util.List;
 public class OrdersController {
 
     @PostMapping("/place")
-    public String createOrder(@RequestBody Order order) {
+    public String createOrder(@RequestBody OrderRequest orderRequest) {
         // Todo
         return "success";
     }
 
     @GetMapping()
-    public List<Order> getOrders() {
+    public List<OrderDTO> getOrders() {
         // Todo
         return null;
     }

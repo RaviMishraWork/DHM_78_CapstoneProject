@@ -18,6 +18,7 @@ public class SupplierService {
 	
 	private SupplierDTO convertToDao(SupplierEntity supplierEntity) {
 		return SupplierDTO.builder()
+				.name(supplierEntity.getName())
 				.contactInfo(supplierEntity.getContactInfo())
 				.rating(supplierEntity.getRating())
 				.build();
@@ -25,6 +26,7 @@ public class SupplierService {
 	
 	private SupplierEntity convertToEntity(SupplierDTO supploerDao) {
 		return SupplierEntity.builder()
+				.name(supploerDao.getName())
 				.contactInfo(supploerDao.getContactInfo())
 				.rating(supploerDao.getRating())
 				.build();
@@ -51,6 +53,7 @@ public class SupplierService {
 		SupplierEntity supplierEntity = supplierRepo.findById(id).orElse(null);
 		
 		if (supplierEntity != null) {
+			supplierEntity.setName(supplierDao.getName());
 			supplierEntity.setContactInfo(supplierDao.getContactInfo());
 			supplierEntity.setRating(supplierDao.getRating());
 			

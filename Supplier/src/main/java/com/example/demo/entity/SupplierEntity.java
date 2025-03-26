@@ -21,7 +21,8 @@ public class SupplierEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+	@Column(name = "name", nullable = false)
+	private String name;
 	@Column(name = "contact_info", nullable = false)
 	private String contactInfo;
 	@Column(name = "rating")

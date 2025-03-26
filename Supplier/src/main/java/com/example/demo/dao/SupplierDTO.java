@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class SupplierDTO {
+	private String name;
 	private String contactInfo;
 	private String rating;
 }

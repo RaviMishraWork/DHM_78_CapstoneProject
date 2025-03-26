@@ -8,6 +8,9 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 	
+	@Autowired
+	private ProductClient productClient;
+	
 	public ProductDao mapEntityToDao(ProductEntity productEntity) {
 		
 		return ProductDao.builder()
@@ -61,6 +64,11 @@ public class ProductService {
 		ProductEntity productEntity = productRepository.findById(id).orElse(null);
 		return mapEntityToDao(productEntity);
 	}	
+	
+	///api/v1/inventory/alerts for viewing low-stock alerts
+	public List<InventoryStockDao> getAlerts(){
+		return productClient.getAlerts();
+	}
 }
 
 

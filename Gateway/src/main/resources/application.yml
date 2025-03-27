@@ -1,0 +1,19 @@
+spring:
+ application:
+  name: gateway
+ cloud:
+  gateway:
+   routes:
+    - id: UserAuth
+      uri: http://localhost:9890
+      predicates:
+        - Path= /security/**
+      filters:
+       - AuthenticationFilter
+
+eureka:
+ client:
+  service-url:
+   defaultZone: http://localhost:8761/eureka
+
+            

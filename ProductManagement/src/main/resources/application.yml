@@ -5,9 +5,9 @@ spring:
   application:
     name: productmanagement
   datasource:
-    url: jdbc:mysql://localhost:3306/productmanagement
-    username: root
-    password: Mysqluser.2022
+    url: jdbc:mysql://localhost:3306/capstone
+    username: cogent
+    password: cogent
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

@@ -18,7 +18,7 @@ public class Alert {
     private Long id;
 
     @Column(name = "product_id")
-    private String productId;
+    private Integer productId;
 
     @Column(name = "product_quantity")
     private Integer productQuantity;

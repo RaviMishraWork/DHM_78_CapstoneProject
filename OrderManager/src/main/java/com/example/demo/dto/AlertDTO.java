@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class AlertDTO {
-    private String productId;
+    private int productSKU;
     private Integer quantity;
 }

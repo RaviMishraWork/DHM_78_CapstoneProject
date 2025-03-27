@@ -19,19 +19,17 @@ public class AlertService {
     @Transactional
     public List<AlertDTO> getAlerts() {
         List<Alert> alertList = alertRepository.findAll();
-
         return alertList.stream().map(alert ->
                 AlertDTO.builder()
-                        .productId(alert.getProductId())
+                        .productSKU(alert.getProductId())
                         .quantity(alert.getProductQuantity())
                         .build()).collect(Collectors.toList());
     }
 
     @Transactional
     public Alert createAlert(AlertDTO alertDTO) {
-
         Alert alert = Alert.builder()
-                .productId(alertDTO.getProductId())
+                .productId(alertDTO.getProductSKU())
                 .productQuantity(alertDTO.getQuantity())
                 .build();
         return alertRepository.save(alert);

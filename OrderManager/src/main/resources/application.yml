@@ -13,13 +13,13 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/capstone
-    username: root
-    password: password
+    username: cogent
+    password: cogent
 hibernate:
   transaction:
     jta:
       platform: enabled
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8761/eureka/
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

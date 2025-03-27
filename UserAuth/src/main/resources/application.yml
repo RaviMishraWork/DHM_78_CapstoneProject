@@ -2,9 +2,9 @@ spring:
   application:
     name: UserAuth
   datasource:
-    url: jdbc:mysql://localhost:3306/Authenticate
-    username: root
-    password: J$4abdulla
+    url: jdbc:mysql://localhost:3306/capstone
+    username: cogent
+    password: cogent
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

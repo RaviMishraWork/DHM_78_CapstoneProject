@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.data.Order;
 import com.example.demo.dto.OrderDTO;
-import com.example.demo.dto.OrderRequest;
+import com.example.demo.dto.OrderRequestDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public class OrdersController {
 
     @PostMapping("/place")
-    public String createOrder(@RequestBody OrderRequest orderRequest) {
+    public String createOrder(@RequestBody OrderRequestDTO orderRequest) {
         // Todo
         return "success";
     }

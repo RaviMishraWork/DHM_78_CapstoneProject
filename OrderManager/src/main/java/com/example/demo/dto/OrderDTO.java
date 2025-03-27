@@ -10,7 +10,7 @@ import java.util.Set;
 @Builder
 @ToString
 public class OrderDTO {
-    private String orderId;
+    private int orderId;
     private Set<ProductDTO> productList;
     private Double totalPrice;
     private SupplierDTO supplier;

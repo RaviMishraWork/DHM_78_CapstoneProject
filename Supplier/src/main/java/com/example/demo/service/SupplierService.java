@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.SupplierDTO;
+import com.example.demo.dto.SupplierDTO;
 import com.example.demo.entity.SupplierEntity;
 import com.example.demo.repository.SupplierRepository;
 
@@ -16,8 +16,9 @@ public class SupplierService {
 	@Autowired
 	private SupplierRepository supplierRepo;
 	
-	private SupplierDTO convertToDao(SupplierEntity supplierEntity) {
+	private SupplierDTO convertToDto(SupplierEntity supplierEntity) {
 		return SupplierDTO.builder()
+				.id(supplierEntity.getId())
 				.name(supplierEntity.getName())
 				.contactInfo(supplierEntity.getContactInfo())
 				.rating(supplierEntity.getRating())
@@ -35,23 +36,23 @@ public class SupplierService {
 	public SupplierDTO insertSupplier(SupplierDTO supplierDao) {
 		SupplierEntity supplierEntity = convertToEntity(supplierDao);
 		supplierRepo.save(supplierEntity );
-		return convertToDao(supplierEntity );
+		return convertToDto(supplierEntity );
 	}
 	
 	public List<SupplierDTO> getAllSuppliers() {
 		return supplierRepo.findAll().stream()
 				.map((supplierEntity ) -> {
-					return convertToDao(supplierEntity );
+					return convertToDto(supplierEntity );
 				}).collect(Collectors.toList());
 	}
 	
 	public SupplierDTO getSupplierById(int id) {
-		return convertToDao(supplierRepo.findById(id).orElse(null));
+		return convertToDto(supplierRepo.findById(id).orElse(null));
 	}
 	
 	public SupplierDTO getSupplierByName(String name) {
 		SupplierEntity se = supplierRepo.findByName(name).orElse(null);
-		return convertToDao(se);
+		return convertToDto(se);
 	}
 
 	public SupplierDTO updateSupplier(int id, SupplierDTO supplierDao) {
@@ -63,7 +64,7 @@ public class SupplierService {
 			supplierEntity.setRating(supplierDao.getRating());
 			
 			supplierEntity = supplierRepo.save(supplierEntity );
-			return convertToDao(supplierEntity );
+			return convertToDto(supplierEntity );
 		} else {
 			return null;
 		}
@@ -74,7 +75,7 @@ public class SupplierService {
 		
 		if (supplierEntity  != null) {
 			supplierRepo.delete(supplierEntity );
-			return convertToDao(supplierEntity );
+			return convertToDto(supplierEntity );
 		} else {
 			return null;
 		}

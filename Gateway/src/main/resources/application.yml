@@ -4,8 +4,8 @@ spring:
  cloud:
   gateway:
    routes:
-    - id: security
-      uri: http://localhost:6464
+    - id: UserAuth
+      uri: http://localhost:9890
       predicates:
         - Path= /security/**
       filters:

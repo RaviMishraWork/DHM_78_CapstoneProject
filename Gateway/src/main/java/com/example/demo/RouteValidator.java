@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RouteValidator {
 	List<String> openEndPoints =
-			List.of("/auth/register","/auth/token");
+			List.of("/security/register","/security/login","security/validate");
 	
 	public Predicate<ServerHttpRequest> isSecure = request-> 
 			openEndPoints.stream()

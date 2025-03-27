@@ -10,7 +10,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JWTUtil {
-	private String secret_key = "";
+	private String secret_key = "gQ7opnLAA3KvHX7JvkCniaBlkbAU1Qfvzdacp+sfXEFo3n6/pFBNxHFvqyr6BpWm";
 	
 	public void validateToken(String jwtToken)
 	{

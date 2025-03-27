@@ -11,6 +11,9 @@ public class ProductService {
 	@Autowired
 	private ProductClient productClient;
 	
+	@Autowired
+	private OrderClient orderClient;
+	
 	public ProductDao mapEntityToDao(ProductEntity productEntity) {
 		
 		return ProductDao.builder()
@@ -81,7 +84,10 @@ public class ProductService {
 		return productClient.getAlerts();
 	}
 	
-	
+	//api/v1/inventory/orders/place to place order 
+	public String sendOrder(OrderRequestDTO orderRequestDTO) {
+		return orderClient.sendOrder(orderRequestDTO);
+	}	
 }
 
 

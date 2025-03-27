@@ -43,4 +43,8 @@ public class ProductController {//localhost:8081/api/v1/inventory
 		return productService.getAlerts() ;
 	}
 	
+	@PostMapping("/orders/place")
+	public String sendOrder(@RequestBody OrderRequestDTO orderRequestDTO) {	
+		return productService.sendOrder(orderRequestDTO);
+	}
 }

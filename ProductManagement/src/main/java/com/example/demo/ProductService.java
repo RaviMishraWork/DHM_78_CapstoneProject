@@ -85,7 +85,7 @@ public class ProductService {
 	}
 	
 	//api/v1/inventory/orders/place to place order 
-	public OrderRequestDTO sendOrder(OrderRequestDTO orderRequestDTO) {
+	public String sendOrder(OrderRequestDTO orderRequestDTO) {
 		return orderClient.sendOrder(orderRequestDTO);
 	}	
 }

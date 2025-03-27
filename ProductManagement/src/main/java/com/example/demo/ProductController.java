@@ -44,7 +44,7 @@ public class ProductController {//localhost:8081/api/v1/inventory
 	}
 	
 	@PostMapping("/orders/place")
-	public OrderRequestDTO sendOrder(@RequestBody OrderRequestDTO orderRequestDTO) {	
+	public String sendOrder(@RequestBody OrderRequestDTO orderRequestDTO) {	
 		return productService.sendOrder(orderRequestDTO);
 	}
 }

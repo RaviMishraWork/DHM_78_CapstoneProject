@@ -48,6 +48,11 @@ public class SupplierService {
 	public SupplierDTO getSupplierById(int id) {
 		return convertToDao(supplierRepo.findById(id).orElse(null));
 	}
+	
+	public SupplierDTO getSupplierByName(String name) {
+		SupplierEntity se = supplierRepo.findByName(name).orElse(null);
+		return convertToDao(se);
+	}
 
 	public SupplierDTO updateSupplier(int id, SupplierDTO supplierDao) {
 		SupplierEntity supplierEntity = supplierRepo.findById(id).orElse(null);
@@ -76,7 +81,5 @@ public class SupplierService {
 		
 		
 	}
-	
-	
 
 }

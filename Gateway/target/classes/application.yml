@@ -10,6 +10,14 @@ spring:
         - Path= /security/**
       filters:
        - AuthenticationFilter
+    - id: productmanagement
+      uri: http://localhost:8081
+      predicates:
+        - Path=/api/v1/inventory/**
+      filters:
+        - AuthenticationFilter
+
+
 
 eureka:
  client:

@@ -14,8 +14,8 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    @Transactional
-    public OrderDTO createOrder(OrderRequest orderRequest) {
-
-    }
+//    @Transactional
+//    public OrderDTO createOrder(OrderRequest orderRequest) {
+//
+//    }
 }

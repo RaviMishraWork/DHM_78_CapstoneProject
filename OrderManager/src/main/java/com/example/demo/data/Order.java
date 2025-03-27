@@ -22,5 +22,5 @@ public class Order {
     private UUID orderId;
 
     @Column(name = "supplier_id")
-    private String supplierId;
+    private int supplierId;
 }

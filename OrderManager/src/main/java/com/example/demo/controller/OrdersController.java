@@ -3,28 +3,42 @@ package com.example.demo.controller;
 import com.example.demo.data.Order;
 import com.example.demo.dto.OrderDTO;
 import com.example.demo.dto.OrderRequestDTO;
+import com.example.demo.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders")
 public class OrdersController {
 
+    @Autowired
+    private OrderService orderService;
+
     @PostMapping("/place")
-    public String createOrder(@RequestBody OrderRequestDTO orderRequest) {
-        // Todo
-        return "success";
+    public OrderDTO createOrder(@RequestBody OrderRequestDTO orderRequest) {
+        return orderService.createOrder(orderRequest);
     }
 
     @GetMapping()
     public List<OrderDTO> getOrders() {
-        // Todo
-        return null;
+        return orderService.getAllOrder();
     }
 
     @GetMapping("/{orderId}")
-    public Order getOrder(@PathVariable String orderId) {
-        return null;
+    public OrderDTO getOrder(@PathVariable UUID orderId) {
+        return orderService.getOrderById(orderId);
+    }
+
+    @PutMapping("/{orderId}")
+    public OrderDTO updateOrder(@PathVariable UUID orderId, @RequestBody OrderRequestDTO orderRequest) {
+        return orderService.updateOrder(orderId, orderRequest);
+    }
+
+    @DeleteMapping("{orderId}")
+    public OrderDTO deleteOrder(@PathVariable UUID orderId) {
+        return orderService.deleteOrder(orderId);
     }
 }

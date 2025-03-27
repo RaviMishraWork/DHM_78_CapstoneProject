@@ -22,8 +22,8 @@ public class OrderProduct {
     @Column(name = "order_id")
     private UUID orderId;
 
-    @Column(name = "product_id", nullable = false, updatable = false, columnDefinition = "VARCHAR(32)")
-    private String productId;
+    @Column(name = "product_id", nullable = false, updatable = false)
+    private Integer productId;
 
     @Column(name = "product_quantity")
     private Integer productQuantity;

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/inventory")
-public class ProductController {
+public class ProductController {//localhost:8081/api/v1/inventory
 	@Autowired
 	private ProductService productService;
 	

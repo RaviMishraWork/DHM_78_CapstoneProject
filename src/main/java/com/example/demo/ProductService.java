@@ -34,6 +34,15 @@ public class ProductService {
 	public ProductDao addProduct(ProductDao productDao) {
 		ProductEntity productEntity = mapDaoToEntity(productDao);
 		productEntity = productRepository.save(productEntity);// save data into table
+		
+		//product client adding product to inventory
+		InventoryStockDao inventoryStockDao = 
+				InventoryStockDao.builder()
+				.sku(productEntity.getSku())
+				.quantity(productEntity.getInitial_stock())
+				.build();
+		productClient.addToInventory(inventoryStockDao);
+		
 		return mapEntityToDao(productEntity);
 	}
 	
@@ -55,6 +64,8 @@ public class ProductService {
 		ProductEntity productEntity = productRepository.findById(id).orElse(null);
 		if (productEntity != null) {
 			productRepository.delete(productEntity);
+			//product client deleting product from inventory by sku
+			productClient.deleteFromInventory(productEntity.getSku());
 			return mapEntityToDao(productEntity);
 		} else return null;
 	}
@@ -69,6 +80,8 @@ public class ProductService {
 	public List<InventoryStockDao> getAlerts(){
 		return productClient.getAlerts();
 	}
+	
+	
 }
 
 

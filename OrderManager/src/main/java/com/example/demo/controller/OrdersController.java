@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.data.Order;
 import com.example.demo.dto.OrderDTO;
 import com.example.demo.dto.OrderRequestDTO;
 import com.example.demo.service.OrderService;

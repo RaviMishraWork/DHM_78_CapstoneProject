@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+    <libraryInfo home="C:\Users\Curtis Terry\Downloads\eclipse-jee-2024-12-R-win32-x86_64\eclipse\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.6.v20250130-0529\jre" version="21.0.6"/>
+    <libraryInfo home="C:\Users\Curtis Terry\Downloads\eclipse-jee-2024-12-R-win32-x86_64\eclipse\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.6.v20250130-0529" version="21.0.6">
+        <bootpath>
+            <entry path="null"/>
+        </bootpath>
+        <extensionDirs>
+            <entry path="null"/>
+        </extensionDirs>
+        <endorsedDirs>
+            <entry path="null"/>
+        </endorsedDirs>
+    </libraryInfo>
+    <libraryInfo home="C:\Program Files\OpenJDK\openjdk-8u282-b08" version="1.8.0_282">
+        <bootpath>
+            <entry path="C:\Program Files\OpenJDK\openjdk-8u282-b08\jre\lib\resources.jar"/>
+            <entry path="C:\Program Files\OpenJDK\openjdk-8u282-b08\jre\lib\rt.jar"/>
+            <entry path="C:\Program Files\OpenJDK\openjdk-8u282-b08\jre\lib\sunrsasign.jar"/>
+            <entry path="C:\Program Files\OpenJDK\openjdk-8u282-b08\jre\lib\jsse.jar"/>
+            <entry path="C:\Program Files\OpenJDK\openjdk-8u282-b08\jre\lib\jce.jar"/>
+            <entry path="C:\Program Files\OpenJDK\openjdk-8u282-b08\jre\lib\charsets.jar"/>
+            <entry path="C:\Program Files\OpenJDK\openjdk-8u282-b08\jre\lib\jfr.jar"/>
+            <entry path="C:\Program Files\OpenJDK\openjdk-8u282-b08\jre\classes"/>
+        </bootpath>
+        <extensionDirs>
+            <entry path="C:\Program Files\OpenJDK\openjdk-8u282-b08\jre\lib\ext"/>
+            <entry path="C:\Windows\Sun\Java\lib\ext"/>
+        </extensionDirs>
+        <endorsedDirs>
+            <entry path="C:\Program Files\OpenJDK\openjdk-8u282-b08\jre\lib\endorsed"/>
+        </endorsedDirs>
+    </libraryInfo>
+</libraryInfos>

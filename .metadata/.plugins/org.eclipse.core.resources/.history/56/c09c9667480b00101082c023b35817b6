@@ -1,0 +1,33 @@
+package com.example.demo.service;
+
+import com.example.demo.data.Order;
+import com.example.demo.dto.OrderRequestDTO;
+import com.example.demo.dto.SupplierDTO;
+import com.example.demo.repository.OrderRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class OrderService {
+
+    @Autowired
+    private OrderRepository orderRepository;
+    
+    public Order convertDTOtoOrder(OrderRequestDTO orderRequest) {
+    	
+    	
+    }
+    
+    public OrderRequestDTO convertOrderToDTO(Order order) {
+    	
+    	
+    }
+
+    @Transactional
+    public OrderDTO createOrder(OrderRequestDTO orderRequest) {
+    	Order
+    	
+    }
+}

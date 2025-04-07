@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="true"/>
+		<list key="findhistory">
+			<item value="eur"/>
+			<item value="se"/>
+			<item value="se "/>
+			<item value="spring-boot-starter-data-jpa"/>
+			<item value="org.springframework.boot"/>
+		</list>
+		<list key="replacehistory">
+			<item value="supplierEntity "/>
+		</list>
+	</section>
+</section>

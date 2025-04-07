@@ -1,0 +1,51 @@
+package com.example.demo.service;
+
+import com.example.demo.data.Order;
+import com.example.demo.dto.OrderDTO;
+import com.example.demo.dto.OrderRequestDTO;
+import com.example.demo.dto.SupplierDTO;
+import com.example.demo.repository.OrderRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class OrderService {
+
+    @Autowired
+    private OrderRepository orderRepository;
+    
+    @Autowired
+    private RestTemplate restTemplate;
+    
+    private static final String SUPPLIER_SERVICE_URL = "http://localhost:9090/supplier/id/{supplierId}";
+
+    
+    
+    private SupplierDTO fetchSupplierDetails(int supplierId) {
+        return restTemplate.getForObject(SUPPLIER_SERVICE_URL, SupplierDTO.class, supplierId);
+    }
+    
+    public Order convertDTOtoOrder(OrderRequestDTO orderRequest) {
+        SupplierDTO supplier = fetchSupplierDetails(orderRequest.getSupplier_id());
+        
+        // Convert OrderRequestDTO to Order entity
+        OrderDTO order = OrderDTO.builder()
+        		.supplierId(supplier.getId())
+        		
+        // Add products logic here
+        return order;
+    }
+    
+    public OrderRequestDTO convertOrderToDTO(Order order) {
+    	
+    	
+    }
+
+    @Transactional
+    public OrderDTO createOrder(OrderRequestDTO orderRequest) {
+    	Order
+    	
+    }
+}

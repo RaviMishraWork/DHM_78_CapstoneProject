@@ -1,0 +1,20 @@
+package com.example.demo.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.dao.SupplierDao;
+import com.example.demo.entity.SupplierEntity;
+import com.example.demo.repo.SupplierRepo;
+
+@Service
+public class SupplierService {
+	
+	@Autowired
+	SupplierRepo supplierRepo;
+	
+	Dao insertSupplier(SupplierDao supplierDao) {
+		
+	}
+
+}

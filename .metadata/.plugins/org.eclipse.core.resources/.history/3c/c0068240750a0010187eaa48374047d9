@@ -1,0 +1,7 @@
+package com.example.demo.dao;
+
+public class SupplierDao {
+	private String contactInfo;
+	private String Rating;
+
+}

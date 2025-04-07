@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;OrderSupplierManager&apos; to &apos;Supplier&apos;" description="Rename resource &apos;OrderSupplierManager&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/OrderSupplierManager" name="Supplier" stamp="1743012640780" updateReferences="true"/>
+</session>

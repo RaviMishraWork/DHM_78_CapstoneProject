@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class SupplierDTO {
     private int id;
-    private String supplierName;
+    private String name;
     private String contactInfo;
     private String rating;
 }

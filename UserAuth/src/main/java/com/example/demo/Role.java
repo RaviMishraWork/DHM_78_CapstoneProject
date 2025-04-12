@@ -1,5 +1,5 @@
 package com.example.demo;
 
 public enum Role {
-	ADMIN,STAFF
+	ADMIN,STAFF,USER
 }

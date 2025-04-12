@@ -37,6 +37,24 @@ public class ProductController {//localhost:8081/api/v1/inventory
 	public ProductDao getProductDetails(@PathVariable int id){
 		return productService.getProductDetails(id);
 	}
+	@PutMapping("/products/sku/{sku}")
+	public ProductDao updateProductBySku(@PathVariable int sku, @RequestBody ProductDao productDao) {
+		return productService.updateProductBySku(sku, productDao);
+	}
+	
+	@DeleteMapping("/products/sku/{sku}")
+	public ProductDao deleteProductBySku(@PathVariable int sku) {
+		return productService.deleteProductBySku(sku);
+	}	
+	
+	@GetMapping("/products/sku/{sku}")
+	public ProductDao getProductDetailsBySku(@PathVariable int sku){
+		return productService.getProductDetailsBySku(sku);
+	}
+	@GetMapping("/products")
+	public List<ProductDao> getAllProductDetails() {
+		return productService.getAllProductDetails();
+	}
 	
 	@GetMapping("/alerts")
 	public List<InventoryStockDao> getAlerts() {	
@@ -44,7 +62,7 @@ public class ProductController {//localhost:8081/api/v1/inventory
 	}
 	
 	@PostMapping("/orders/place")
-	public String sendOrder(@RequestBody OrderRequestDTO orderRequestDTO) {	
+	public OrderDTO sendOrder(@RequestBody OrderDTO orderRequestDTO) {
 		return productService.sendOrder(orderRequestDTO);
 	}
 }

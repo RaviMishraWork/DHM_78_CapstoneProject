@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.PostMapping;
 @FeignClient(name="orders",url="localhost:9000/orders")
 public interface OrderClient {
 	@PostMapping("/place")
-	public String sendOrder(OrderRequestDTO orderRequestDTO);
+	public OrderDTO sendOrder(OrderDTO orderRequestDTO);
 }

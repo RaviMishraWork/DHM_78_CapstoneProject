@@ -30,6 +30,11 @@ public class ProductEntity {
 	private String description;
 	@Column(nullable=false)
 	private int initial_stock;
+	@Column(nullable=false)
+	private double buyPrice = 0.0;
+	@Column(nullable=false)
+	private double sellPrice = 0.0;
+
 	
 }
 

@@ -1,18 +1,24 @@
 package com.example.demo.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.ToString;
+import com.example.demo.data.OrderStatus;
+import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Data
+
 @Builder
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class OrderDTO {
     private UUID orderId;
     private List<ProductDTO> productList;
     private Double totalPrice;
     private SupplierDTO supplier;
+    private Date orderCreated;
+    private Date orderUpdated;
+    private Date orderCompleted;
+    private OrderStatus orderStatus;
 }

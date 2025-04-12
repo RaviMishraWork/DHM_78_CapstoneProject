@@ -16,17 +16,18 @@ public class AuthService {
 	@Autowired
 	private JwtService jwtService;
 	
-	public String saverUser(UserCredential userCredential)
+	public AuthResponse saverUser(UserCredential userCredential)
 	{
 		userCredential.setPassword(passwordEncoder.encode(userCredential.getPassword()));
 		repository.save(userCredential);
-		return "Inserted New Record";
+		return new AuthResponse(true, "Inserted New Record");
 		
 	}
 	
-	public String generateToken(String userName)
+	public AuthResponse generateToken(String userName)
 	{
-		return jwtService.generateToken(userName);
+		UserCredential userCreds = repository.findByEmail(userName).orElse(null);
+		return new AuthResponse(true, jwtService.generateToken(userName, userCreds));
 	}
 	
 	

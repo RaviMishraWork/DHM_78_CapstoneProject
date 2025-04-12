@@ -17,22 +17,22 @@ public class OrderProductService {
     @Autowired
     private OrderProductRepository orderProductRepository;
 
-    public OrderProduct createOrderProduct(OrderProductDTO orderProductDTO) {
-        OrderProduct orderProduct = OrderProduct.builder()
-                .productId(orderProductDTO.getProductId())
-                .productQuantity(orderProductDTO.getProductQuantity())
-                .build();
-        orderProductRepository.save(orderProduct);
-        return orderProduct;
-    }
+//    public OrderProduct createOrderProduct(OrderProductDTO orderProductDTO) {
+//        OrderProduct orderProduct = OrderProduct.builder()
+//                .productId(orderProductDTO.getProductId())
+//                .productQuantity(orderProductDTO.getProductQuantity())
+//                .build();
+//        orderProductRepository.save(orderProduct);
+//        return orderProduct;
+//    }
 
-    public List<ProductDTO> findByOrderId(UUID orderId) {
-        List<OrderProduct> orderProductList = orderProductRepository.findAllByOrderId(orderId);
-
-        return orderProductList.stream().map(orderProduct ->
-                ProductDTO.builder()
-                        .productId(orderProduct.getProductId())
-                        .productQuantity(orderProduct.getProductQuantity())
-                        .build()).collect(Collectors.toList());
-    }
+//    public List<ProductDTO> findByOrderId(UUID orderId) {
+//        List<OrderProduct> orderProductList = orderProductRepository.findAllByOrderId(orderId);
+//
+//        return orderProductList.stream().map(orderProduct ->
+//                ProductDTO.builder()
+//                        .productId(orderProduct.getProductId())
+//                        .productQuantity(orderProduct.getProductQuantity())
+//                        .build()).collect(Collectors.toList());
+//    }
 }

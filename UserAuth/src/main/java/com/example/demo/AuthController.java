@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,12 +23,12 @@ public class AuthController {
 	private AuthenticationManager manager;
 
 	@PostMapping("/register")
-	public String addUser(@RequestBody UserCredential userCredential) {
+	public AuthResponse addUser(@RequestBody UserCredential userCredential) {
 		return service.saverUser(userCredential);
 	}
 
 	@PostMapping("/login")
-	public String generateToken(@RequestBody AuthRequest authRequest) {
+	public AuthResponse generateToken(@RequestBody AuthRequest authRequest) {
 		Authentication auth = manager.authenticate(
 				new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
 				);

@@ -6,6 +6,7 @@ import com.example.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 import java.util.UUID;
 
@@ -17,12 +18,13 @@ public class OrdersController {
     private OrderService orderService;
 
     @PostMapping("/place")
-    public OrderDTO createOrder(@RequestBody OrderRequestDTO orderRequest) {
+    public @ResponseBody OrderDTO createOrder(@RequestBody OrderDTO orderRequest) {
+        System.out.println(orderRequest);
         return orderService.createOrder(orderRequest);
     }
 
-    @GetMapping()
-    public List<OrderDTO> getOrders() {
+    @GetMapping("/")
+    public @ResponseBody  List<OrderDTO> getOrders() {
         return orderService.getAllOrder();
     }
 
@@ -32,12 +34,17 @@ public class OrdersController {
     }
 
     @PutMapping("/{orderId}")
-    public OrderDTO updateOrder(@PathVariable UUID orderId, @RequestBody OrderRequestDTO orderRequest) {
+    public OrderDTO updateOrder(@PathVariable UUID orderId, @RequestBody OrderDTO orderRequest) {
         return orderService.updateOrder(orderId, orderRequest);
     }
 
     @DeleteMapping("{orderId}")
     public OrderDTO deleteOrder(@PathVariable UUID orderId) {
         return orderService.deleteOrder(orderId);
+    }
+
+    @PostMapping("mark-complete/{orderId}")
+    public OrderDTO markOrderAsCompleted(@PathVariable UUID orderId) {
+        return orderService.markOrderAsCompleted(orderId);
     }
 }

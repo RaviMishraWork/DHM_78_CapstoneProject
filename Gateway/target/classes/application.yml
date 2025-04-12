@@ -3,11 +3,20 @@ spring:
   name: gateway
  cloud:
   gateway:
-   routes:
+    default-filters:
+    - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+    globalcors:
+     corsConfigurations:
+      '[/**]':
+        allowedOrigins: 'http://localhost:4200'
+        allowedMethods: "*"
+        allowedHeaders: "*"
+        allowCredentials: true
+    routes:
     - id: UserAuth
       uri: http://localhost:9890
       predicates:
-        - Path= /security/**
+        - Path=/security/**
       filters:
        - AuthenticationFilter
     - id: productmanagement
@@ -16,8 +25,32 @@ spring:
         - Path=/api/v1/inventory/**
       filters:
         - AuthenticationFilter
-
-
+    - id: ordermanagement
+      uri: http://localhost:9000
+      predicates:
+        - Path=/orders/**
+      filters:
+        - AuthenticationFilter
+    - id: SaleManager
+      uri: http://localhost:8099
+      predicates:
+        - Path=/sales/**
+      filters:
+        - AuthenticationFilter
+    - id: supplier
+      uri: http://localhost:9090
+      predicates:
+        - Path=/supplier/**
+      filters:
+        - AuthenticationFilter
+    - id: InventoryTracking
+      uri: http://localhost:8082
+      predicates:
+        - Path=/stockapi/**
+      filters:
+        - AuthenticationFilter
+ main:
+  web-application-type: reactive
 
 eureka:
  client:

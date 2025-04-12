@@ -15,4 +15,7 @@ public interface ProductClient {
 
     @GetMapping("/{id}")
     ProductDTO getProduct(@PathVariable int id);
+
+    @PostMapping("/increase/sku/{sku}")
+    void increaseProduct(@PathVariable int sku, @RequestBody int quantity);
 }

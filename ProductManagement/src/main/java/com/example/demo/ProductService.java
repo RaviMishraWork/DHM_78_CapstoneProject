@@ -1,5 +1,7 @@
 package com.example.demo;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ public class ProductService {
 				.name(productEntity.getName())
 				.description(productEntity.getDescription())
 				.initial_stock(productEntity.getInitial_stock())
+				.buyPrice(productEntity.getBuyPrice())
+				.sellPrice(productEntity.getSellPrice())
 				.build();
 	}
 	
@@ -31,6 +35,8 @@ public class ProductService {
 					.name(productDao.getName())
 					.description(productDao.getDescription())
 					.initial_stock(productDao.getInitial_stock())
+					.buyPrice(productDao.getBuyPrice())
+					.sellPrice(productDao.getSellPrice())
 					.build();			
 	}
 	//a.Add Product
@@ -77,15 +83,49 @@ public class ProductService {
 	public ProductDao getProductDetails(int id) {
 		ProductEntity productEntity = productRepository.findById(id).orElse(null);
 		return mapEntityToDao(productEntity);
-	}	
+	}
 	
+	public List<ProductDao> getAllProductDetails() {
+		List<ProductEntity> productEntities = productRepository.findAll();
+		return productEntities.stream().map(this::mapEntityToDao).collect(Collectors.toList());
+	}
+
+	public ProductDao deleteProductBySku(int sku) {
+		ProductEntity productEntity = productRepository.findBySku(sku);
+		if (productEntity != null) {
+			productRepository.delete(productEntity);
+			productClient.deleteFromInventory(productEntity.getSku());
+			return mapEntityToDao(productEntity);
+		} else return null;
+	}
+
+	public ProductDao getProductDetailsBySku(int sku) {
+		ProductEntity productEntity = productRepository.findBySku(sku);
+		return mapEntityToDao(productEntity);
+	}
+
+	public ProductDao updateProductBySku(int sku, ProductDao productDao) {
+		ProductEntity productEntity = productRepository.findBySku(sku);
+		if(productEntity != null) {
+			productEntity.setSku(productDao.getSku());
+			productEntity.setName(productDao.getName());
+			productEntity.setDescription(productDao.getDescription());
+			productEntity.setBuyPrice(productDao.getBuyPrice());
+			productEntity.setSellPrice(productDao.getSellPrice());
+			productEntity.setInitial_stock(productDao.getInitial_stock());
+
+			productEntity = productRepository.save(productEntity);
+			return mapEntityToDao(productEntity);
+		} else return null;
+	}
+
 	///api/v1/inventory/alerts for viewing low-stock alerts
 	public List<InventoryStockDao> getAlerts(){
 		return productClient.getAlerts();
 	}
 	
 	//api/v1/inventory/orders/place to place order 
-	public String sendOrder(OrderRequestDTO orderRequestDTO) {
+	public OrderDTO sendOrder(OrderDTO orderRequestDTO) {
 		return orderClient.sendOrder(orderRequestDTO);
 	}	
 }

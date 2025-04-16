@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -52,5 +53,15 @@ public class OrdersController {
     public List<OrderDTO> getOrdersBySku(@PathVariable Integer sku) {
         return orderService.getOrdersBySku(sku);
     }
+
+    @GetMapping("/totalorders/sku")
+    public Map<Integer, Integer> getTotalOrdersForEachSku() {
+        return orderService.getTotalOrdersForEachSku();
+    }
+    @GetMapping("/totalexpenditures/sku")
+    public Map<Integer, Double> getTotalExpendituresForEachSku() {
+        return orderService.getTotalExpendituresForEachSku();
+    }
+
 
 }

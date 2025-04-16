@@ -64,6 +64,14 @@ public class SalesController {
     public List<SaleDTO> getSalesBySku(@PathVariable Integer sku) {
         return saleService.getSalesBySku(sku);
     }
+    @GetMapping("/totalsales/sku")
+    public Map<Integer, Integer> getTotalSalesForEachSku() {
+        return saleService.getTotalSalesForEachSku();
+    }
+    @GetMapping("/totalrevenue/sku")
+    public Map<Integer, Double> getTotalRevenueForEachSku() {
+        return saleService.getTotalRevenueForEachSku();
+    }
 
     @GetMapping("/pendingdemands")
     public Map<Integer,Integer> getPendingDemands() {

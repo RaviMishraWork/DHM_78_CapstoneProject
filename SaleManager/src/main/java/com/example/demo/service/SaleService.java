@@ -13,10 +13,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -243,6 +240,39 @@ public class SaleService {
 //        List<Sale> saleList = saleRepository.findAllBySku(sku);
         return saleList.stream().map(this::convertSaleToSaleDTO).collect(Collectors.toList());
     }
+
+    public Map<Integer,Integer> getTotalSalesForEachSku() {
+        Map<Integer, Integer> skusAndSales = new HashMap<Integer, Integer>();
+        List<Sale> saleList = saleRepository.findAll();
+        saleList.stream().forEach(sale -> {
+            List<SaleProduct> saleProducts = sale.getProducts();
+            saleProducts.stream().forEach(saleProduct -> {
+                if (skusAndSales.containsKey(saleProduct.getSku())) {
+                    skusAndSales.put(saleProduct.getSku(), skusAndSales.get(saleProduct.getSku()) + saleProduct.getQuantity());
+                } else {
+                    skusAndSales.put(saleProduct.getSku(), saleProduct.getQuantity());
+                }
+            });
+        });
+        return skusAndSales;
+    }
+        public Map<Integer, Double> getTotalRevenueForEachSku()
+        {
+            Map<Integer, Double> skusAndRevenue = new HashMap<Integer, Double>();
+            List<Sale> saleList = saleRepository.findAll();
+            saleList.stream().forEach(sale -> {
+                List<SaleProduct> saleProducts = sale.getProducts();
+                saleProducts.stream().forEach(saleProduct -> {
+                    if (skusAndRevenue.containsKey(saleProduct.getSku())) {
+                        skusAndRevenue.put(saleProduct.getSku(), skusAndRevenue.get(saleProduct.getSku()) + (saleProduct.getPrice() * saleProduct.getQuantity()));
+                    } else {
+                        skusAndRevenue.put(saleProduct.getSku(), (saleProduct.getPrice() * saleProduct.getQuantity()));
+                    }
+                });
+            });
+            return skusAndRevenue;
+        }
+
 
     public Map<Integer, Integer> getPendingDemands()
     {

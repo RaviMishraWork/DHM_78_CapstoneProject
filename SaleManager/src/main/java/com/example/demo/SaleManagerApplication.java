@@ -10,8 +10,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-@AutoConfiguration
-@EnableAutoConfiguration
 public class SaleManagerApplication {
 
 	public static void main(String[] args) {

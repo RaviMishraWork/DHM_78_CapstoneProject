@@ -15,10 +15,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -83,6 +80,35 @@ public class OrderService {
 //        List<Order> orderList = orderRepository.findAllBySku(sku);
         return orderList.stream().map(this::convertOrderToOrderDTO).collect(Collectors.toList());
     }
+
+    public Map<Integer,Integer> getTotalOrdersForEachSku() {
+        List<OrderProduct> orderProducts = orderProductRepository.findAll();
+        Map<Integer, Integer> skuQuantityMap = new HashMap<>();
+        for (OrderProduct orderProduct : orderProducts) {
+            int sku = orderProduct.getSku();
+            int quantity = orderProduct.getQuantity();
+            if (skuQuantityMap.containsKey(sku)) {
+                quantity += skuQuantityMap.get(sku);
+            }
+            skuQuantityMap.put(sku, skuQuantityMap.getOrDefault(sku, 0) + quantity);
+        }
+        return skuQuantityMap;
+    }
+    public Map<Integer, Double> getTotalExpendituresForEachSku() {
+        List<OrderProduct> orderProducts = orderProductRepository.findAll();
+        Map<Integer, Double> skuExpenditureMap = new HashMap<>();
+        for (OrderProduct orderProduct : orderProducts) {
+            int sku = orderProduct.getSku();
+            double price = orderProduct.getPrice();
+            int quantity = orderProduct.getQuantity();
+            if (skuExpenditureMap.containsKey(sku)) {
+                price += skuExpenditureMap.get(sku);
+            }
+            skuExpenditureMap.put(sku, skuExpenditureMap.getOrDefault(sku, 0.0) + (price * quantity));
+        }
+        return skuExpenditureMap;
+    }
+
 //    public List<OrderDTO> getOrdersBySupplierId(Integer supplierId) {
 //        List<Order> orderList = orderRepository.findAllBySupplierId(supplierId);
 //        return orderList.stream().map(this::convertOrderToOrderDTO).collect(Collectors.toList());

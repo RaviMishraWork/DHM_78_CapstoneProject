@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 public interface InventoryStockRepository extends JpaRepository<InventoryStockEntity, Integer> {
@@ -16,4 +17,7 @@ public interface InventoryStockRepository extends JpaRepository<InventoryStockEn
 
     @Query(value = "SELECT * FROM inventory WHERE quantity < ?1", nativeQuery = true)
     List<InventoryStockEntity> findByQuantityLessThan(int quantity);
+
+    @Query(value = "SELECT i FROM InventoryStockEntity i WHERE sku IN ?1")
+    List<InventoryStockEntity> findAllBySkus(Set<Integer> integers);
 }

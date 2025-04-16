@@ -34,6 +34,12 @@ public class ProductEntity {
 	private double buyPrice = 0.0;
 	@Column(nullable=false)
 	private double sellPrice = 0.0;
+	@Column
+	private int supplierId;
+	@Column
+	private String imageUrl;
+	@Column
+	private String category;
 
 	
 }

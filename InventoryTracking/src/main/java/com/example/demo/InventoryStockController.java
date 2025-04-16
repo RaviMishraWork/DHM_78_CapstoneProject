@@ -1,9 +1,11 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/stockapi")
@@ -48,14 +50,35 @@ public class InventoryStockController {
     public InventoryStockDao decreaseStockBySku(@PathVariable int sku, @RequestBody int quantity) {
         return inventoryStockService.decreaseQuantityBySku(sku, quantity);
     }
+    @PostMapping("/decrease/skus")
+    public List<InventoryStockDao> decreaseStockForSkus(@RequestBody Map<Integer,Integer> skusAndQuantities) throws Exception {
+        return inventoryStockService.decreaseStockForSkus(skusAndQuantities);
+    }
+    @PostMapping("/increase/skus")
+    public List<InventoryStockDao> increaseStockForSkus(@RequestBody Map<Integer,Integer> skusAndQuantities) {
+        return inventoryStockService.increaseStockForSkus(skusAndQuantities);
+    }
     @PostMapping("/increase/sku/{sku}")
     public InventoryStockDao increaseStockBySku(@PathVariable int sku, @RequestBody int quantity) {
         return inventoryStockService.increaseQuantityBySku(sku, quantity);
     }
     @GetMapping("/alerts")
-    public List<InventoryStockDao> getLowStockAlerts() {
-    	return inventoryStockService.getLowStockAlerts();
+    public List<AlertDao> getLowStockAlerts() {
+    	return inventoryStockService.getAllAlerts();
     }
 
+    @PostMapping("/handlependingdemands")
+    public Map<Integer, Integer> handlePendingDemands(@RequestBody Map<Integer,Integer> skusAndQuantities) throws Exception {
+        return inventoryStockService.handlePendingDemands(skusAndQuantities);
+    }
+
+//    @PostMapping("/alert/sku/{sku}")
+//    public InventoryStockDao alertOfLowStockBySku(@PathVariable int sku) {
+//        return inventoryStockService.alertOfLowStockBySku(sku);
+//    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception e) {
+        return ResponseEntity.status(500).body(e.getMessage());
+    }
 
 }

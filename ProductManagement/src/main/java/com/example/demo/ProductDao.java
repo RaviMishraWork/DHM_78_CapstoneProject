@@ -19,4 +19,7 @@ public class ProductDao {
 	private double buyPrice;
 	private double sellPrice;
 	private int initial_stock;
+	private int supplierId;
+	private String imageUrl;
+	private String category;
 }

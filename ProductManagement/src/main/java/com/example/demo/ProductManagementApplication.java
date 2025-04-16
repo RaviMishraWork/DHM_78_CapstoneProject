@@ -11,6 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class ProductManagementApplication {
 
 	public static void main(String[] args) {
+		System.out.println(System.getenv());
 		SpringApplication.run(ProductManagementApplication.class, args);
 	}
 

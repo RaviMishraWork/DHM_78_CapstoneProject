@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -118,6 +119,7 @@ public class SaleService {
                 .build();
         saleProductList.stream().forEach(newSale::addProduct);
         newSale = saleRepository.save(newSale);
+        handlePendingDemands();
 //
 //        HashMap<Integer, Integer> productSkusAndQuantities = SaleRequest.getProductSkusAndQuantities();
 //
@@ -155,6 +157,7 @@ public class SaleService {
                 .quantity(productDTO.getQuantity())
                 .build()).collect(Collectors.toList()));
         sale = saleRepository.save(sale);
+        handlePendingDemands();
         SaleDTO saleDTO = convertSaleToSaleDTO(sale);
 //        List<SaleProduct> saleProducts = saleProductRepository.findAllBySaleId(sale.getSaleId());
 //        saleProductRepository.saveAll(saleProducts);
@@ -170,24 +173,37 @@ public class SaleService {
 //        saleProductRepository.deleteAll(saleProducts);
         return saleDTO;
     }
-
-    public SaleDTO markSaleAsShipped(UUID saleId) {
+    @Transactional(rollbackOn = Throwable.class)
+    public SaleDTO markSaleAsShipped(UUID saleId) throws Exception {
         Sale sale = saleRepository.getReferenceById(saleId);
         sale.setSaleStatus(SaleStatus.SHIPPED);
         sale.setSaleCompleted(new java.sql.Date(System.currentTimeMillis()));
         sale = saleRepository.save(sale);
         List<SaleProduct> products = sale.getProducts();
+        Map<Integer, Integer> skusAndQuantities = new java.util.HashMap<>();
         products.stream().forEach(
                 saleProduct -> {
-                    productClient.decreaseProduct(saleProduct.getSku(), saleProduct.getQuantity());
+//                    productClient.decreaseProduct(saleProduct.getSku(), saleProduct.getQuantity());
+                    skusAndQuantities.put(saleProduct.getSku(), saleProduct.getQuantity());
                 }
         );
+        Map<Integer,Integer> result =  productClient.decreaseProducts(skusAndQuantities);
+        if (result.size() != skusAndQuantities.size()) {
+            throw new Exception("Insufficient stock for one or more products");
+        }
         return convertSaleToSaleDTO(sale);
     }
 
     public SaleDTO markSaleAsCompleted(UUID saleId) {
         Sale sale = saleRepository.getReferenceById(saleId);
         sale.setSaleStatus(SaleStatus.COMPLETED);
+        sale.setSaleCompleted(new java.sql.Date(System.currentTimeMillis()));
+        sale = saleRepository.save(sale);
+        return convertSaleToSaleDTO(sale);
+    }
+    public SaleDTO markSaleAsCancelled(UUID saleId) {
+        Sale sale = saleRepository.getReferenceById(saleId);
+        sale.setSaleStatus(SaleStatus.CANCELLED);
         sale.setSaleCompleted(new java.sql.Date(System.currentTimeMillis()));
         sale = saleRepository.save(sale);
         return convertSaleToSaleDTO(sale);
@@ -215,6 +231,38 @@ public class SaleService {
                 .saleCompleted(finalSale.getSaleCompleted())
                 .saleStatus(finalSale.getSaleStatus())
                 .build();
+    }
+
+    public List<SaleDTO> getSalesBySku(Integer sku) {
+        List<SaleProduct> saleProducts = saleProductRepository.findAllBySku(sku);
+        List<Sale> saleList = new ArrayList<Sale>();
+        saleProducts.stream().forEach(saleProduct -> {
+            Sale sale = saleRepository.getReferenceById(saleProduct.getSale().getSaleId());
+            saleList.add(sale);
+        });
+//        List<Sale> saleList = saleRepository.findAllBySku(sku);
+        return saleList.stream().map(this::convertSaleToSaleDTO).collect(Collectors.toList());
+    }
+
+    public Map<Integer, Integer> getPendingDemands()
+    {
+        List<Sale> saleList = saleRepository.findAllBySaleStatus(SaleStatus.PENDING);
+        Map<Integer, Integer> skusAndQuantities = new java.util.HashMap<>();
+        saleList.stream().forEach(sale -> {
+            List<SaleProduct> saleProducts = sale.getProducts();
+            saleProducts.stream().forEach(saleProduct -> {
+                if (skusAndQuantities.containsKey(saleProduct.getSku())) {
+                    skusAndQuantities.put(saleProduct.getSku(), skusAndQuantities.get(saleProduct.getSku()) + saleProduct.getQuantity());
+                } else {
+                    skusAndQuantities.put(saleProduct.getSku(), saleProduct.getQuantity());
+                }
+            });
+        });
+        return skusAndQuantities;
+    }
+    public void handlePendingDemands() {
+        Map<Integer, Integer> skusAndQuantities = getPendingDemands();
+        Map<Integer, Integer> result = productClient.handlePendingDemands(skusAndQuantities);
     }
 
 }

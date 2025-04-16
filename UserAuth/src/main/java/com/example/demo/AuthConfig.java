@@ -34,9 +34,13 @@ public class AuthConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
 				return http.csrf(csrf -> csrf.disable()).cors(cors->cors.configurationSource(corsConfigurationSource)).authorizeHttpRequests(
-				requests -> requests.requestMatchers("/security/register", "/security/login", "/security/validate")
-				.permitAll())
-				.build();
+				requests -> requests.requestMatchers("/security/register", "/security/login", "/security/validate", "/security/isemailtaken", "/security/*").permitAll()
+//						.requestMatchers("/security/getallusers", "/security/getalladmins", "/security/getallstaff", "/security/getallusersbyrole").hasAnyAuthority("ADMIN")
+//						.requestMatchers("/security/getallstaff").hasAnyAuthority("ADMIN", "STAFF")
+						)
+						.build();
+//				.permitAll())
+//				.build();
 	}
 
 	@Bean

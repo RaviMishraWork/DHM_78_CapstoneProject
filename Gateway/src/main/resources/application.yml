@@ -49,6 +49,12 @@ spring:
         - Path=/stockapi/**
       filters:
         - AuthenticationFilter
+    - id: SeedService
+      uri: http://localhost:9999
+      predicates:
+        - Path=/seed/**
+      filters:
+        - AuthenticationFilter
  main:
   web-application-type: reactive
 

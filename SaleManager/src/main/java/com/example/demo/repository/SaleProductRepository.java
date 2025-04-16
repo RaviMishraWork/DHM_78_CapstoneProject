@@ -11,5 +11,6 @@ import java.util.UUID;
 
 @Repository
 public interface SaleProductRepository extends JpaRepository<SaleProduct, Integer> {
+    List<SaleProduct> findAllBySku(Integer sku);
 //    List<SaleProduct> findAllBySaleId(UUID saleId);
 }

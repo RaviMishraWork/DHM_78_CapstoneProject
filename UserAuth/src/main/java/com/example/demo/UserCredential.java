@@ -26,7 +26,8 @@ public class UserCredential {
 	private String name;
 	private String email;
 	private String password;
-	
+	private boolean alertsEnabled = true;
+
 	@Enumerated(EnumType.STRING) 
     private Role role;
 

@@ -46,9 +46,15 @@ public class Sale {
 
     @PrePersist
     public void prePersist() {
-        this.saleCreated = new Date(System.currentTimeMillis());
-        this.saleUpdated = new Date(System.currentTimeMillis());
-        this.saleStatus = SaleStatus.PENDING;
+        if (this.saleCreated == null) {
+            this.saleCreated = new Date(System.currentTimeMillis());
+        }
+        if (this.saleUpdated == null) {
+            this.saleUpdated = new Date(System.currentTimeMillis());
+        }
+        if (this.saleStatus == null) {
+            this.saleStatus = SaleStatus.PENDING;
+        }
     }
     @PreUpdate
     public void preUpdate() {

@@ -72,6 +72,21 @@ public class OrderService {
         Order order = orderRepository.getReferenceById(orderId);
         return convertOrderToOrderDTO(order);
     }
+    @Transactional
+    public List<OrderDTO> getOrdersBySku(Integer sku) {
+            List<OrderProduct> orderProducts = orderProductRepository.findAllBySku(sku);
+            List<Order> orderList = new ArrayList<Order>();
+            orderProducts.stream().forEach(orderProduct -> {
+                Order order = orderRepository.getReferenceById(orderProduct.getOrder().getOrderId());
+                orderList.add(order);
+            });
+//        List<Order> orderList = orderRepository.findAllBySku(sku);
+        return orderList.stream().map(this::convertOrderToOrderDTO).collect(Collectors.toList());
+    }
+//    public List<OrderDTO> getOrdersBySupplierId(Integer supplierId) {
+//        List<Order> orderList = orderRepository.findAllBySupplierId(supplierId);
+//        return orderList.stream().map(this::convertOrderToOrderDTO).collect(Collectors.toList());
+//    }
 
     public List<OrderDTO> getAllOrder() {
         List<Order> orderList = orderRepository.findAll();

@@ -38,13 +38,19 @@ public class OrdersController {
         return orderService.updateOrder(orderId, orderRequest);
     }
 
-    @DeleteMapping("{orderId}")
+    @DeleteMapping("/{orderId}")
     public OrderDTO deleteOrder(@PathVariable UUID orderId) {
         return orderService.deleteOrder(orderId);
     }
 
-    @PostMapping("mark-complete/{orderId}")
+    @PostMapping("/mark-complete/{orderId}")
     public OrderDTO markOrderAsCompleted(@PathVariable UUID orderId) {
         return orderService.markOrderAsCompleted(orderId);
     }
+
+    @GetMapping("/sku/{sku}")
+    public List<OrderDTO> getOrdersBySku(@PathVariable Integer sku) {
+        return orderService.getOrdersBySku(sku);
+    }
+
 }

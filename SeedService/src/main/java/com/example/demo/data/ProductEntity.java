@@ -14,24 +14,26 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ProductEntity {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(unique=true)
+
+	@Column(unique = true)
 	private int sku;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String name;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String description;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private int initial_stock;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private double buyPrice = 0.0;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private double sellPrice = 0.0;
+	@Column
+	private int supplierId;
+	@Column
+	private String imageUrl;
+	@Column
+	private String category;
 
-	
 }
-
-
-

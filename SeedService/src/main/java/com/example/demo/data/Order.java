@@ -44,9 +44,15 @@ public class Order {
 
     @PrePersist
     public void prePersist() {
-        this.orderCreated = new Date(System.currentTimeMillis());
-        this.orderUpdated = new Date(System.currentTimeMillis());
-        this.orderStatus = OrderStatus.PENDING;
+        if (this.orderCreated == null) {
+            this.orderCreated = new Date(System.currentTimeMillis());
+        }
+        if (this.orderUpdated == null) {
+            this.orderUpdated = new Date(System.currentTimeMillis());
+        }
+        if (this.orderStatus == null) {
+            this.orderStatus = OrderStatus.PENDING;
+        }
     }
     @PreUpdate
     public void preUpdate() {
